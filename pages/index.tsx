@@ -1,6 +1,4 @@
 import type { NextPage, GetStaticProps } from 'next'
-import Head from 'next/head'
-import Image from 'next/image'
 import { pokeApi } from '../api'
 import { Layout } from '../components/layouts/Layout'
 import { PokemonCard } from '../components/pokemons/PokemonCard'

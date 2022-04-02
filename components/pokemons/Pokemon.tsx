@@ -2,14 +2,12 @@ import React, { useState } from 'react'
 import Image from 'next/image'
 import { Pokemon } from '../../interfaces/pokemonFull'
 import { localFavorites } from '../../utils'
-import favoriteIcon from '../../public/favorite.png'
-import noFavoriteIcon from '../../public/noFavorite.png'
 import confetti from 'canvas-confetti';
+import { origin } from '../layouts/Layout'
 
 interface Props {
     pokemon: Pokemon
 }
-
 export const PokemonContent = ({ pokemon }:Props) => {
     const { id, name, sprites } = pokemon
     const [ isInFavorites, setIsInFavorites ] = useState(localFavorites.existFavorite(id))
@@ -38,7 +36,7 @@ export const PokemonContent = ({ pokemon }:Props) => {
                     font-semibold p-2 border-[2px] border-blue-500 absolute top-28 right-7'
             >
                 <Image
-                    src={isInFavorites ? favoriteIcon : noFavoriteIcon}
+                    src={isInFavorites ? `${origin}/favorite.png` : `${origin}/noFavorite.png`}
                     alt="Favorite"
                     width={40}
                     height={40}

@@ -1,17 +1,20 @@
 import Image from 'next/image'
 import { useRouter } from 'next/router'
-import pockemon from '../public/pokeapi_256.png'
+import { origin } from './layouts/Layout'
+
 export const Navbar = () => {
   const router = useRouter()
   return (
     <div className="w-full h-20 bg-black border-b-[1px] border-b-blue-400 text-white flex p-5">
         <div className='flex items-center'>
             <Image 
+              src={`${origin}/pokeapi_256.png`}
               className='cursor-pointer'
               onClick={() => router.push('/')}
-              src={pockemon} 
               height={60} 
-              alt="PokemonApi" 
+              width={180}
+              alt="PokemonApi"
+              layout='fixed' 
             />
         </div>
         <div className="w-full h-full flex items-center justify-end">
