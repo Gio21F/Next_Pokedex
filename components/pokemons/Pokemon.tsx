@@ -34,7 +34,7 @@ export const PokemonContent = ({ pokemon }:Props) => {
                     font-semibold p-2 border-[2px] border-blue-500 absolute top-28 right-7'
             >
                 <Image
-                    src={isInFavorites ? `/favorite.png` : `/noFavorite.png`}
+                    src={isInFavorites ? `/favorite.png` : `/NoFavorite.png`}
                     alt="Favorite"
                     width={40}
                     height={40}
