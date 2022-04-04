@@ -11,11 +11,13 @@ interface Props {
 }
 
 const PokemonPage: NextPage<Props> = ({ pokemon, error }) => {
-    if (error || !pokemon) return <h1> Pokemon not found </h1>
+    const title = pokemon?.name || 'Pokemon not found'
     return (
-        <Layout title={ pokemon.name }>
+        <Layout title={ title }>
             <div className='flex h-screen'>
-                <PokemonContent pokemon={pokemon} />
+                {
+                    (error || !pokemon) ? <h1 className='p-8 font-semibold text-lg'> Pokemon not found </h1> : <PokemonContent pokemon={pokemon!} />
+                }
             </div>
         </Layout>
     )
@@ -26,7 +28,7 @@ export const getStaticPaths: GetStaticPaths = async (ctx) => {
     const arrayCompletePokemos = [...Array(151)].map( (_, i) => `${ i + 1 }`)
     return {
         paths: arrayCompletePokemos.map( (id) => ({ params: { id } })),
-        fallback: false
+        fallback: 'blocking'
     }
 }
 
@@ -34,16 +36,17 @@ export const getStaticProps: GetStaticProps = async ({ params }) => {
     const id = params?.id
     try {
         const pokemon = await getPokemonInfo( id as string )
-        return {
-            props: {
-                pokemon
+        if (pokemon) {
+            return {
+                props: { pokemon },
+                revalidate: 86400
             }
         }
+        return { props: { error: true } }
     } catch (e) {
         return {
-            props: {
-                error: true
-            }
+            props: { error: true },
+            revalidate: 86400
         }
     }
 }
